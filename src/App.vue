@@ -1,9 +1,39 @@
 <template>
-
+  <div>
+    <div class="post" v-for="post in posts">
+      <div><strong>Название:</strong>{{ post.title }}</div>
+      <div><strong>Описание:</strong>{{ post.body }}</div>
+    </div>
+  </div>
 </template>
 
-<script setup>
+<script>
+export default {
+  data() {
+    return {
+      posts: [
+        {id: 1, title: 'VueJs', body: 'Описание 1'},
+        {id: 1, title: 'VueJs', body: 'Описание 2'},
+        {id: 1, title: 'VueJs', body: 'Описание 3'},
+      ]
+    }
+  },
+  methods: {
+
+  }
+}
 </script>
 
-<style scoped>
+<style>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.post {
+  padding: 15px;
+  border: 2px solid teal;
+  margin-top: 15px;
+}
 </style>
