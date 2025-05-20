@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <h1>Страница с постами</h1>
+    <input type="text" v-model="modificatorValue">
     <my-button
         @click="showDialogue"
         style="margin: 15px 0;"
@@ -15,7 +16,9 @@
     <post-list
         :posts="posts"
         @remove="removePost"
+        v-if="!isPostsLoading"
     />
+    <div v-else>Идет загрузка..</div>
   </div>
 </template>
 
@@ -24,6 +27,7 @@ import PostForm from '@/components/PostForm.vue'
 import PostList from '@/components/PostList.vue'
 import MyDialogue from "@/components/UI/MyDialogue.vue";
 import MyButton from "@/components/UI/MyButton.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -33,13 +37,9 @@ export default {
   },
   data() {
     return {
-      posts: [
-        {id: 1, title: 'VueJs', body: 'Описание 1'},
-        {id: 2, title: 'VueJs', body: 'Описание 2'},
-        {id: 3, title: 'VueJs', body: 'Описание 3'},
-        {id: 4, title: 'VueJs', body: 'Описание 4'},
-      ],
+      posts: [],
       dialogueVisible: false,
+      isPostsLoading: false,
     }
   },
   methods: {
@@ -52,7 +52,21 @@ export default {
     },
     showDialogue() {
       this.dialogueVisible = true;
+    },
+    async fetchPosts() {
+      try {
+        this.isPostsLoading = true;
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+          this.posts = response.data;
+      } catch (e) {
+        alert('ошибка')
+      } finally {
+        this.isPostsLoading = false;
+      }
     }
+  },
+  mounted() {
+    this.fetchPosts();
   }
 }
 </script>
