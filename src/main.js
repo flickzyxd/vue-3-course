@@ -6,6 +6,7 @@ const app = createApp(App)
 
 components.forEach(component =>  {
     app.component(component.name, component)
+    console.log(component)
 })
 
-createApp(App).mount('#app')
+app.mount('#app')
