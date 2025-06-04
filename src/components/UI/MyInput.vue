@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 .input {
-  width: 100%;
+  width: 98%;
   border: 2px solid teal;
   padding: 10px 15px;
   margin-top: 15px;
